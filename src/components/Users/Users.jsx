@@ -2,10 +2,11 @@ import React from 'react';
 import s from "./User.module.css";
 import userPhoto from "../../assets/myface.jpg";
 import {NavLink} from "react-router-dom";
+import {UserAPI} from "../../api/api";
+import {toggleIsProgress} from "../../reducer/UsersReducer";
 
 
 const Users = (props) => {
-
 
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
@@ -30,7 +31,7 @@ const Users = (props) => {
                         <div>
                             <NavLink to={'/profile/' + u.id}>
                                   <img className={s.userPhoto}
-                                       src={u.photos.small != null ? u.photos.small != null : userPhoto} alt="img"/>
+                                       src={u.photos.small !== null ? u.photos.small : userPhoto} alt="img"/>
                             </NavLink>
 
                         </div>
@@ -38,11 +39,28 @@ const Users = (props) => {
                     <span>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
-                                    props.unfollow(u.id)
+                                ? <button
+                                    disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => {
+                                    props.toggleIsProgress(true, u.id);
+                                    UserAPI.getUnfollow(u.id).then(data => {
+                                        if(data.resultCode === 0) {
+                                            props.unfollow(u.id)
+                                        }
+                                        props.toggleIsProgress(false, u.id);
+                                    })
                                 }}>Unfollow</button>
-                                : <button onClick={() => {
-                                    props.follow(u.id)
+
+                                : <button
+                                    disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => {
+                                    props.toggleIsProgress(true, u.id);
+                                    UserAPI.getFollow(u.id).then(data => {
+                                        if(data.resultCode === 0) {
+                                            props.follow(u.id)
+                                        }
+                                        props.toggleIsProgress(false, u.id);
+                                    })
                                 }}>Follow</button>
                             }
                         </div>
@@ -52,10 +70,6 @@ const Users = (props) => {
                             <div>{u.name}</div>
                             <div>{u.status}</div>
                         </span>
-                        {/* <span>*/}
-                        {/*    <div>{u.location.country}</div>*/}
-                        {/*    <div>{u.location.city}</div>*/}
-                        {/*</span>*/}
                     </span>
                 </div>)
             }
