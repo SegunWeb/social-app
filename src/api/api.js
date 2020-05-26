@@ -16,10 +16,10 @@ export const UserAPI = {
         return GET(`users?page=${currentPage}&count=${pageSize}`).then(res => res.data);
     },
     /*=== users jsx === */
-    getUnfollow(userId) {
+    isUnfollow(userId) {
         return DELETE(`follow/${userId}`).then(res => res.data);
     },
-    getFollow(userId) {
+    isFollow(userId) {
         return POST(`follow/${userId}`).then(res => res.data);
     }
 };
@@ -27,6 +27,11 @@ export const UserAPI = {
 /*=== profile container === */
 export const getProfileUser = (userId) => {
     return GET(`profile/` + userId).then(res => res.data);
+};
+
+/*=== header container auth ===*/
+export const getAuthData = () => {
+    return GET('auth/me');
 };
 
 
