@@ -1,9 +1,7 @@
 import React from 'react';
 import s from "./User.module.css";
 import userPhoto from "../../assets/myface.jpg";
-import {NavLink, Redirect} from "react-router-dom";
-import {UserAPI} from "../../api/api";
-
+import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
 
@@ -21,7 +19,7 @@ const Users = (props) => {
                 {pages.map(p => {
                     return <span
                         key={p}
-                        className={props.currentPage === p && s.pageActive}
+                        className={props.currentPage}
                         onClick={(e) => {props.onPageChanged(p)}}
                     >{p}</span>
                 })}

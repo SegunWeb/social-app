@@ -1,8 +1,9 @@
-import {getProfileUser} from "../api/api";
+import {ProfileAPI} from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_USER_STATUS = "SET_USER_STATUS";
 
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
         {id: 4, message: 'Dada', likesCount: 11}
     ],
     newPostText: 'it-kamasutra.com',
-    profile: null
+    profile: null,
+    status: ""
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -39,6 +41,11 @@ const profileReducer = (state = initialState, action) => {
                     ...state,
                     profile: action.profile
                 };
+            case SET_USER_STATUS:
+                return {
+                    ...state,
+                    status: action.status
+                };
             default: return state;
         }
 };
@@ -46,13 +53,24 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT, newText: text});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile });
+export const setStatusProfile = (status) => ({type: SET_USER_STATUS, status });
 
 export const getProfileUsersThunk = (userId) => (dispatch) => {
-        getProfileUser(userId).then(data => {
-            dispatch(setUserProfile(data))
-        })
+    ProfileAPI.getProfileUser(userId).then(data => {
+        dispatch(setUserProfile(data))
+    });
 };
-
-
+export const getStatusUsersThunk = (userId) => (dispatch) => {
+    ProfileAPI.getStatus(userId).then(res => {
+        dispatch(setStatusProfile(res.data))
+    })
+};
+export const updateStatusUsersThunk = (status) => (dispatch) => {
+    ProfileAPI.updateStatus(status).then(res => {
+        if(res.data.resultCode === 0 ) {
+            dispatch(setStatusProfile(status))
+        }
+    })
+};
 
 export default profileReducer;

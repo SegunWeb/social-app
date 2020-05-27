@@ -2,15 +2,13 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../reducer/DialogsReducer";
-import {Redirect} from "react-router-dom";
 
 const Dialogs = (props) => {
 
     let state = props.dialogsPage;
 
-    let dialogsElements = state.dialogs.map( d => <DialogItem name={d.name} id={d.id} />  );
-    let messagesElements = state.messages.map( m => <Message message={m.message}/> );
+    let dialogsElements = state.dialogs.map( d => <DialogItem key={d.id} name={d.name} id={d.id} />  );
+    let messagesElements = state.messages.map( m => <Message key={m.message} message={m.message}/> );
     let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = () => {
@@ -20,9 +18,6 @@ const Dialogs = (props) => {
         let body = e.target.value;
         props.updateNewMessageBody(body);
     };
-
-
-    
 
     return (
         <div className={s.dialogs}>

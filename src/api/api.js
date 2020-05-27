@@ -8,6 +8,7 @@ const instanse = axios.create({
 const GET = instanse.get;
 const POST = instanse.post;
 const DELETE = instanse.delete;
+const PUT = instanse.put;
 
 
 export const UserAPI = {
@@ -25,9 +26,18 @@ export const UserAPI = {
 };
 
 /*=== profile container === */
-export const getProfileUser = (userId) => {
-    return GET(`profile/` + userId).then(res => res.data);
+export const ProfileAPI = {
+    getProfileUser(userId) {
+        return GET(`profile/` + userId).then(res => res.data);
+    },
+    getStatus(userId) {
+        return GET(`profile/status/` + userId)
+    },
+    updateStatus(status) {
+        return PUT(`profile/status/`, {status: status});
+    }
 };
+
 
 /*=== header container auth ===*/
 export const getAuthData = () => {
