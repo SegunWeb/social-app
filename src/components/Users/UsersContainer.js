@@ -6,7 +6,7 @@ import {
     setCurrentPage, toggleIsProgress, getUsersThunk, isUnfollowThunk, isFollowThunk
 } from "../../reducer/UsersReducer";
 import Users from "./Users.jsx";
-import Preloader from "../Preloader/preloader";
+import Preloader from "../commons/Preloader/preloader";
 import {withAuthRedirect} from "../hoc/AuthRedirect";
 import {compose} from "redux";
 
