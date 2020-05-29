@@ -9,6 +9,14 @@ import Users from "./Users.jsx";
 import Preloader from "../commons/Preloader/preloader";
 import {withAuthRedirect} from "../hoc/AuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsAuth, getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "./UsersSelectors";
 
 
 
@@ -59,23 +67,36 @@ class UsersContainer extends Component {
     }
 };
 
+// const mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//         isAuth: state.authUser.isAuth,
+//     }
+// };
+
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.authUser.isAuth,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        isAuth: getIsAuth(state),
     }
 };
+
 
 export default compose(
     connect(mapStateToProps,
         { followSuccess, unfollowSuccess,
             setCurrentPage, toggleIsProgress,
             getUsersThunk, isUnfollowThunk, isFollowThunk}),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersContainer);
 
