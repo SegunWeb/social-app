@@ -28,7 +28,7 @@ export const UserAPI = {
 /*=== profile container === */
 export const ProfileAPI = {
     getProfileUser(userId) {
-        return GET(`profile/` + userId).then(res => res.data);
+        return GET(`profile/` + userId)
     },
     getStatus(userId) {
         return GET(`profile/status/` + userId)

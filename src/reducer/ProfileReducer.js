@@ -45,35 +45,32 @@ const profileReducer = (state = initialState, action) => {
             case DELETE_POST:
                 return {
                     ...state,
-                    posts: state.posts.filter(p => p.id != action.postId)
+                    posts: state.posts.filter(p => p.id !== action.postId)
                 };
             default: return state;
         }
 };
 
 export const addPostActionCreator = (newPostText) => ({type: ADD_POST, newPostText});
-
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile });
 export const setStatusProfile = (status) => ({type: SET_USER_STATUS, status });
-
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
 
-export const getProfileUsersThunk = (userId) => (dispatch) => {
-    ProfileAPI.getProfileUser(userId).then(data => {
-        dispatch(setUserProfile(data))
-    });
+
+export const getProfileUsersThunk = (userId) => async (dispatch) => {
+    const response = await ProfileAPI.getProfileUser(userId);
+    dispatch(setUserProfile(response.data))
+
 };
-export const getStatusUsersThunk = (userId) => (dispatch) => {
-    ProfileAPI.getStatus(userId).then(res => {
-        dispatch(setStatusProfile(res.data))
-    })
+export const getStatusUsersThunk = (userId) => async (dispatch) => {
+    const response = await ProfileAPI.getStatus(userId);
+    dispatch(setStatusProfile(response.data))
 };
-export const updateStatusUsersThunk = (status) => (dispatch) => {
-    ProfileAPI.updateStatus(status).then(res => {
-        if(res.data.resultCode === 0 ) {
-            dispatch(setStatusProfile(status))
-        }
-    })
+export const updateStatusUsersThunk = (status) => async (dispatch) => {
+    const response = await ProfileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusProfile(status))
+    }
 };
 
 export default profileReducer;

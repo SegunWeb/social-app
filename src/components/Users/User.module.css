@@ -1,17 +1,4 @@
 .userPhoto {
     max-width: 70px;
 }
-.wrapper {
-    padding: 20px;
-}
-.selectedPage {
-    margin: 10px;
-}
-.selectedPage > span {
-    padding: 2px;
-    margin: 5px;
-    border: 1px solid #000;
-}
-.pageActive {
-    font-weight: bold;
-}
+
