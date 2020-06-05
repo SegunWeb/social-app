@@ -13,7 +13,7 @@ const Users = ({currentPage, users, onPageChanged, followingInProgress, follow, 
                 currentPage={currentPage}
                 onPageChanged={onPageChanged}
                 pageSize={pageSize}
-                totalUsersCount={totalUsersCount}
+                totalItemsCount={totalUsersCount}
             />
 
             {users.map(user => (

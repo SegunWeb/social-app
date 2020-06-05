@@ -8,12 +8,25 @@ class ProfileStatus extends Component {
         status: this.props.status
     };
 
-    toggleEditMode = () => {
-      this.setState({
-         editMode: !this.state.editMode
-      });
+    // toggleEditMode = () => {
+    //   this.setState({
+    //      editMode: !this.state.editMode
+    //   });
+    //     this.props.updateStatus(this.state.status);
+    // };
+
+    activateEditMode = () => {
+        this.setState({
+            editMode: true
+        });
+    }
+
+    deactivateEditMode() {
+        this.setState({
+            editMode: false
+        });
         this.props.updateStatus(this.state.status);
-    };
+    }
 
     onStatusChange = (e) => {
         this.setState({
@@ -25,10 +38,10 @@ class ProfileStatus extends Component {
         return (
             <div>
                 { !this.state.editMode
-                    ? <div><span onDoubleClick={this.toggleEditMode}>{this.props.status || "no status"}</span></div>
+                    ? <div><span onDoubleClick={this.activateEditMode}>{this.props.status || "no status"}</span></div>
                     : <div>
                         <input autoFocus
-                               onBlur={this.toggleEditMode}
+                               onBlur={this.deactivateEditMode}
                                value={this.state.status}
                                 onChange={this.onStatusChange}
                         />
