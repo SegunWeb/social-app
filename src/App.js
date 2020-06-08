@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, BrowserRouter, Route, withRouter} from "react-router-dom";
 
 import UsersContainer from "./components/Users/UsersContainer";
 
@@ -60,10 +60,17 @@ const AppContainer = compose(
     connect(mapStateToProps, {getInitializedApp}))(App);
 
 const MainApp = (props) => (
-    <BrowserRouter>
+    <HashRouter >
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
+
+//     <BrowserRouter basename={process.env.PUBLIC_URL}>
+//     <Provider store={store}>
+//     <AppContainer/>
+//     </Provider>
+// </BrowserRouter>
+
 );
 export default MainApp
