@@ -4,7 +4,7 @@ import Profile from "./Profile";
 import {
     getProfileUsersThunk,
     getStatusUsersThunk,
-    savePhoto,
+    savePhoto, saveProfile,
     updateStatusUsersThunk
 } from "../../reducer/ProfileReducer";
 import { withRouter} from "react-router-dom";
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default compose(
-    connect(mapStateToProps, { getProfileUsersThunk, getStatusUsersThunk, updateStatusUsersThunk, savePhoto}),
+    connect(mapStateToProps, { getProfileUsersThunk, getStatusUsersThunk, updateStatusUsersThunk, savePhoto, saveProfile}),
     withRouter,
     // withAuthRedirect,
 )
