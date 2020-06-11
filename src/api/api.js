@@ -55,11 +55,17 @@ export const ProfileAPI = {
 export const getAuthData = () => {
     return GET('auth/me');
 };
-export const login = (email, password, remember = false) => {
-    return POST(`auth/login`, {email, password, remember});
+export const login = (email, password, remember = false, captcha = null) => {
+    return POST(`auth/login`, {email, password, remember, captcha});
 };
 export const logout = () => {
     return DELETE(`auth/login`);
+};
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return GET("security/get-captcha-url")
+    }
 };
 
 
