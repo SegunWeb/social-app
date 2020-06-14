@@ -76,10 +76,17 @@ export const getStatusUsersThunk = (userId) => async (dispatch) => {
     dispatch(setStatusProfile(response.data))
 };
 export const updateStatusUsersThunk = (status) => async (dispatch) => {
-    const response = await ProfileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
-        dispatch(setStatusProfile(status))
+    
+    try{
+
+        const response = await ProfileAPI.updateStatus(status);
+        if (response.data.resultCode === 0) {
+            dispatch(setStatusProfile(status))
+        }
+    } catch (error) {
+        alert(error)
     }
+    
 };
 
 export const savePhoto = (file) => async (dispatch) => {

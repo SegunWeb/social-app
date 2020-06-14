@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {HashRouter, BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, BrowserRouter, Route, withRouter, Switch, Redirect} from "react-router-dom";
 
 import UsersContainer from "./components/Users/UsersContainer";
 
@@ -21,8 +21,9 @@ const DialogsContainer = React.lazy(() => import( "./components/Dialogs/DialogsC
 const ProfileContainer = React.lazy(() => import( "./components/Profile/ProfileContainer"));
 
 class App extends Component {
+
     componentDidMount() {
-        this.props.getInitializedApp()
+        this.props.getInitializedApp();
     }
 
     render() {
@@ -35,14 +36,23 @@ class App extends Component {
                         <HeaderContainer/>
                         <Navbar/>
                         <div className='app-wrapper-content'>
-                            <Route path='/dialogs'
-                                   render={withSuspense(DialogsContainer)}/>
-                            <Route path='/profile/:userId?'
-                                   render={withSuspense(ProfileContainer)}/>
-                            <Route path='/users'
-                                   render={() => <UsersContainer/>}/>
-                            <Route path='/login'
-                                   render={() => <LoginContainer/>}/>
+                            <Switch>
+                                <Route exact path='/'
+                                       render={() => <Redirect to={"/profile"} /> }/>
+                                <Route path='/dialogs'
+                                       render={withSuspense(DialogsContainer)}/>
+                                <Route path='/profile/:userId?'
+                                       render={withSuspense(ProfileContainer)}/>
+                                <Route path='/users'
+                                       render={() => <UsersContainer/>}/>
+                                <Route path='/login/test'
+                                       render={() => <div>Test</div>}/>
+                                <Route path='/login'
+                                       render={() => <LoginContainer/>}/>
+
+                                <Route path='*'
+                                       render={() => <div>404 not found</div>}/>
+                            </Switch>
                         </div>
                     </div>
                 }
@@ -60,17 +70,17 @@ const AppContainer = compose(
     connect(mapStateToProps, {getInitializedApp}))(App);
 
 const MainApp = (props) => (
-    <HashRouter >
-        <Provider store={store}>
-            <AppContainer/>
-        </Provider>
-    </HashRouter>
-
-//     <BrowserRouter basename={process.env.PUBLIC_URL}>
+//     <HashRouter >
 //     <Provider store={store}>
 //     <AppContainer/>
 //     </Provider>
-// </BrowserRouter>
+// </HashRouter>
+
+    <BrowserRouter >
+    <Provider store={store}>
+    <AppContainer/>
+    </Provider>
+</BrowserRouter>
 
 );
 export default MainApp

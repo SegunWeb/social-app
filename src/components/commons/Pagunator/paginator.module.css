@@ -14,9 +14,22 @@
 
 .pageActive {
     font-weight: bold;
+    color: red;
 }
 
 .wrapper {
     padding: 20px;
     display: flex;
 }
+.wrapperBorder {
+    border: 1px solid tomato;
+}
+
+.pageBlack {
+    color: green;
+}
+.pageNumber {
+    color: orangered;
+}
+
+
