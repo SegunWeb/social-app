@@ -1,12 +1,39 @@
 .header {
     grid-area: h;
-    background-color: green;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    border: 1px solid cadetblue;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+}
+.header_box {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .header img {
-    width: 20px;
+    width: 60px;
+    border-radius: 5px;
+
 }
 .loginBlock {
-    float: right;
-    background-color: #fff;
+    width: 100%;
+}
+
+.header_box > div > span {
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+
+.header_box > div > button {
+    border: 1px solid tomato;
+    border-radius: 10px;
+    margin-left: 20px;
 }
 
