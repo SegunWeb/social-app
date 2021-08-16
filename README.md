@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Application using some parts of the social network functionality, built with React Redux.
+
+Test user -
+Email: free@samuraijs.com
+Password: free
+
+https://segunweb.github.io/social-app/
+
 
 ## Available Scripts
 
